@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot_travel.mapper.TabRouteMapper">
+    <update id="countAdd" parameterType="integer">
+        update tab_route set count=count+1 where rid=#{rid}
+    </update>
+    <update id="countDelete">
+        update tab_route set count=count-1 where rid=#{rid}
+    </update>
+
+    <!--    人气旅游查询-->
+    <select id="findRouteByCount" resultType="TabRoute">
+        select * from tab_route order by count  desc limit 4
+    </select>
+
+    <!--    最新旅游查询-->
+    <select id="findRouteByRdate" resultType="TabRoute">
+        select * from tab_route order by rdate  desc limit 4
+    </select>
+
+    <!--    主题旅游查询-->
+    <select id="findRouteByTheme" resultType="TabRoute">
+        select * from tab_route where isThemeTour=1 limit 4
+    </select>
+<!--    国内游，境外游-->
+    <select id="findAllRoute" resultType="TabRoute" parameterType="integer">
+        select * from tab_route where cid=#{cid}
+    </select>
+    <select id="findRoutPage" resultType="TabRoute">
+        select * from tab_route where rname like concat('%',#{text},'%')
+    </select>
+<!--    详情页-->
+    <sql id="messages">
+        a.rid,a.rname,a.price,a.routeintroduce,a.rflag,
+        a.rdate,a.isthemetour,a.count,a.cid,a.rimage,
+        a.sid,b.bigpic,group_concat(b.smallpic) as smallpic,c.cname
+    </sql>
+    <select id="findOneMessage" resultType="TabRouteMessages" parameterType="integer">
+        select <include refid="messages"></include>
+        from tab_route a
+        left join tab_route_img b
+        on  a.rid=b.rid
+        left join tab_category c
+        on  a.cid=c.cid
+        where a.rid=#{rid}
+        group by a.rid
+    </select>
+<!--    查找count大于0的-->
+    <select id="findAllCountMoreOne" resultType="TabRoute">
+        select * from tab_route
+        <where>
+            <if test="text!=null and text!='' ">
+                rname like concat('%',#{text},'%')
+            </if>
+            <if test="minprice != null and maxprice ==null " >
+                and price>=#{minprice}
+            </if>
+            <if test="maxprice != null  and minprice == null ">
+                and  #{maxprice}>=price
+            </if>
+            <if test="minprice != null and maxprice !=null">
+                and price  between #{minprice} and #{maxprice}
+            </if>
+            <if test="1">
+                and  count >0
+            </if>
+        </where>
+        order by count desc
+    </select>
+</mapper>
+

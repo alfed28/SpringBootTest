@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+    <button id="get">getTest</button>
+    <button id="post">postTest</button>
+    <button id="put">putTest</button>
+    <button id="delete">deleteTest</button>
+</body>
+    <script>
+        $("#get").click(function (){
+            $.ajax({
+                url:"http://localhost:8080/restful",
+                type:"get",
+                data:{restfulName:"get"},
+                datatype: "json",
+                success:function (resp){
+                    alert(resp)
+                }
+            })
+        })
+        $("#post").click(function (){
+            $.ajax({
+                url:"http://localhost:8080/restful",
+                type:"post",
+                datatype: "json",
+                success:function (resp){
+                    alert(resp)
+                }
+            })
+        })
+        $("#put").click(function (){
+            $.ajax({
+                url:"http://localhost:8080/restful",
+                type:"put",
+                datatype: "json",
+                success:function (resp){
+                    alert(resp)
+                }
+            })
+        })
+        $("#delete").click(function (){
+            $.ajax({
+                url:"http://localhost:8080/restful",
+                type:"delete",
+                datatype: "json",
+                success:function (resp){
+                    alert(resp)
+                }
+            })
+        })
+    </script>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootmabatisplusdemo3.mapper.RouteMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootmabatisplusdemo3.domain.Route">
+            <id property="rid" column="rid" jdbcType="INTEGER"/>
+            <result property="rname" column="rname" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DOUBLE"/>
+            <result property="routeintroduce" column="routeIntroduce" jdbcType="VARCHAR"/>
+            <result property="rflag" column="rflag" jdbcType="CHAR"/>
+            <result property="rdate" column="rdate" jdbcType="VARCHAR"/>
+            <result property="isthemetour" column="isThemeTour" jdbcType="CHAR"/>
+            <result property="count" column="count" jdbcType="INTEGER"/>
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
+            <result property="rimage" column="rimage" jdbcType="VARCHAR"/>
+            <result property="sid" column="sid" jdbcType="INTEGER"/>
+            <result property="sourceid" column="sourceId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rid,rname,price,
+        routeIntroduce,rflag,rdate,
+        isThemeTour,count,cid,
+        rimage,sid,sourceId
+    </sql>
+</mapper>

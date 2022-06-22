@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootmabatisplusdemo2.mapper.FavoriteMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootmabatisplusdemo2.domain.Favorite">
+            <id property="rid" column="rid" jdbcType="INTEGER"/>
+            <id property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="date" column="date" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rid,uid,date
+    </sql>
+    <delete id="deleteByUidAndRid">
+        delete
+        from tab_favorite
+        where uid = #{uid,jdbcType=NUMERIC}
+          AND rid = #{rid,jdbcType=NUMERIC}
+    </delete>
+    <select id="selectByUidAndRidAndDate" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tab_favorite
+        where
+        uid = #{uid,jdbcType=NUMERIC}
+        AND rid = #{rid,jdbcType=NUMERIC}
+        AND date = #{date}
+    </select>
+    <insert id="insertSelective">
+        insert into tab_favorite
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rid != null">rid,</if>
+            <if test="uid != null">uid,</if>
+            <if test="date != null">date,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rid != null">#{rid,jdbcType=INTEGER},</if>
+            <if test="uid != null">#{uid,jdbcType=INTEGER},</if>
+            <if test="date != null">#{date,jdbcType=DATE},</if>
+        </trim>
+    </insert>
+
+
+</mapper>
