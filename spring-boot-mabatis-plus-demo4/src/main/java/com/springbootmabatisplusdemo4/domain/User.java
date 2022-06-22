@@ -1,28 +1,76 @@
 package com.springbootmabatisplusdemo4.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-import javax.persistence.*;
-
 /**
- * @Classname User
- * @Description TODO
- * @Version 1.0.0
- * @Date 2022/6/21 14:43
- * @Created by 石傲
+ * 
+ * @TableName tab_user
  */
+@TableName(value ="tab_user")
 @Data
-@Entity
-@Table(name = "tab_test")
-public class User {
+public class User implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Integer uid;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long uid;
-
+    /**
+     * 
+     */
     private String username;
 
-    private Integer password;
+    /**
+     * 
+     */
+    private String password;
 
+    /**
+     * 
+     */
+    private String name;
+
+    /**
+     * 
+     */
+    private Date birthday;
+
+    /**
+     * 
+     */
+    private String sex;
+
+    /**
+     * 
+     */
+    private String telephone;
+
+    /**
+     * 
+     */
+    private String email;
+
+    /**
+     * 
+     */
+    private String status;
+
+    /**
+     * 
+     */
+    private String code;
+
+    /**
+     * 
+     */
     private Integer isdeleted;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
